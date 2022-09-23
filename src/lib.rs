@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::WindowResized, input::mouse::MouseButtonInput};
+use bevy::{prelude::*, window::WindowResized};
 use bevy_rapier3d::prelude::*;
 use wasm_bindgen::prelude::*;
 
@@ -8,57 +8,68 @@ struct MainCamera;
 struct ShakeableCup;
 
 fn spawn_gltf(mut commands: Commands, (asset, mut meshes, mut materials): (Res<AssetServer>, ResMut<Assets<Mesh>>, ResMut<Assets<StandardMaterial>>)) {
-    let my_gltf = asset.load("starter_3d_dice_pack/dice_red_out/dice_red.gltf#Scene0");
-
+    let dice_gltf = asset.load("dice_yellow/dice_yellow.gltf#Scene0");
+    let cup_gltf: Handle<Scene> = asset.load("yahtzee_cup.glb#Scene0");
+    
     //dice
     commands.spawn_bundle(SceneBundle {
-        scene: my_gltf.clone(),
-        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 3., 0.))),
+        scene: dice_gltf.clone(),
+        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 3.0, 0.))),
         ..Default::default()
     })
-    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.03))
+    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.015))
     .insert(RigidBody::Dynamic)
-    .insert(Velocity {
-        linvel: Vec3::new(0., 0., 0.),
-        angvel: Vec3::new(0., 0., 0.,)
-    });
+    .insert(Velocity::default());
     commands.spawn_bundle(SceneBundle {
-        scene: my_gltf.clone(),
+        scene: dice_gltf.clone(),
         transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 3.5, 0.))),
         ..Default::default()
     })
-    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.03))
+    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.015))
     .insert(RigidBody::Dynamic)
-    .insert(Velocity {
-        linvel: Vec3::new(0., 0., 0.),
-        angvel: Vec3::new(0., 0., 0.,)
-    });
+    .insert(Velocity::default());
     commands.spawn_bundle(SceneBundle {
-        scene: my_gltf,
-        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 4., 0.))),
+        scene: dice_gltf.clone(),
+        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 4.0, 0.))),
         ..Default::default()
     })
-    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.03))
+    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.015))
     .insert(RigidBody::Dynamic)
-    .insert(Velocity {
-        linvel: Vec3::new(0., 0., 0.),
-        angvel: Vec3::new(0., 0., 0.,)
-    });
+    .insert(Velocity::default());
+    commands.spawn_bundle(SceneBundle {
+        scene: dice_gltf.clone(),
+        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 4.5, 0.))),
+        ..Default::default()
+    })
+    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.015))
+    .insert(RigidBody::Dynamic)
+    .insert(Velocity::default());
+    commands.spawn_bundle(SceneBundle {
+        scene: dice_gltf.clone(),
+        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.)) * Mat4::from_translation(Vec3::new(0., 5.0, 0.))),
+        ..Default::default()
+    })
+    .insert(Collider::round_cuboid(0.025, 0.025, 0.025, 0.015))
+    .insert(RigidBody::Dynamic)
+    .insert(Velocity::default());
 
     //cup
-    commands.spawn_bundle(PbrBundle{
-        mesh: meshes.add(Mesh::from(shape::Plane{ size: 1. })),
-        material: materials.add(StandardMaterial::from(Color::rgba(0., 1., 0., 1.0))),
-        transform: Transform::from_xyz(0., 1., 0.),
+    commands.spawn_bundle(SceneBundle {
+        scene: cup_gltf,
+        transform: Transform::from_matrix(Mat4::from_scale(Vec3::new(2., 2., 2.))),
         ..default()
     })
     .insert(RigidBody::KinematicVelocityBased)
     .insert(Collider::compound(vec![
-        (Vec3::new(0.,  -0.5,  0.), default(), Collider::cuboid(1.5, 0.5, 1.5)),
-        (Vec3::new(-1.,  0.5,  0.), default(), Collider::cuboid(0.5, 0.5, 0.5)),
-        (Vec3::new(1.,   0.5,  0.), default(), Collider::cuboid(0.5, 0.5, 0.5)),
-        (Vec3::new(0.,   0.5, -1.), default(), Collider::cuboid(0.5, 0.5, 0.5)),
-        (Vec3::new(0.,   0.5,  1.), default(), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.000, -0.5,  0.000),                              default(), Collider::cuboid(1.5, 0.5, 1.5)),
+        (Vec3::new(-0.625,  0.5,  0.000),                              default(), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.625,  0.5,  0.000),                              default(), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.000,  0.5, -0.625),                              default(), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.000,  0.5,  0.625),                              default(), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.442,  0.5, -0.442), Quat::from_axis_angle(Vec3::Y, 0.7853), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new(-0.442,  0.5, -0.442), Quat::from_axis_angle(Vec3::Y, 2.3562), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new(-0.442,  0.5,  0.442), Quat::from_axis_angle(Vec3::Y, 3.9270), Collider::cuboid(0.5, 0.5, 0.5)),
+        (Vec3::new( 0.442,  0.5,  0.442), Quat::from_axis_angle(Vec3::Y, 5.5978), Collider::cuboid(0.5, 0.5, 0.5)),
         ])
     )
     .insert(Velocity {
@@ -66,7 +77,7 @@ fn spawn_gltf(mut commands: Commands, (asset, mut meshes, mut materials): (Res<A
         angvel: Vec3::new(0., 0., 0.,)
     })
     .insert(Friction{
-        coefficient: 0.8,
+        coefficient: 1.5,
         ..default()
     })
     .insert(ShakeableCup);
@@ -101,31 +112,6 @@ fn spawn_gltf(mut commands: Commands, (asset, mut meshes, mut materials): (Res<A
         .insert(MainCamera);
 }
 
-fn control(input: Res<Input<KeyCode>>, time: Res<Time>, mut query: Query<&mut Transform, With<MainCamera>>) {
-    for mut transform in &mut query {
-        let mut direction = Vec3::ZERO;
-        if input.pressed(KeyCode::W) {
-            direction += transform.forward();
-        }
-        if input.pressed(KeyCode::A) {
-            direction += transform.left();
-        }
-        if input.pressed(KeyCode::S) {
-            direction += transform.back();
-        }
-        if input.pressed(KeyCode::D) {
-            direction += transform.right();
-        }
-        if input.pressed(KeyCode::LControl) {
-            direction += transform.down();
-        }
-        if input.pressed(KeyCode::Space) {
-            direction += transform.up();
-        }
-        transform.translation += direction * 2.0 * time.delta_seconds();
-    }
-}
-
 #[derive(Default)]
 struct ShakeCupState {
     cursor_world_position: Vec3,
@@ -149,7 +135,11 @@ fn shake_cup(mut state: Local<ShakeCupState>, mouse_input: Res<Input<MouseButton
                     state.cursor_world_position = world_position;
                 }    
                 let (cup_transform, mut cup_velocity) = cup_query.single_mut();
-                cup_velocity.linvel = (state.cursor_world_position - cup_transform.translation()) * 5.;
+                cup_velocity.linvel = (state.cursor_world_position - cup_transform.translation()) * 6.;
+            }
+            else {
+                let (cup_transform, mut cup_velocity) = cup_query.single_mut();
+                cup_velocity.linvel = (Vec3::new(0., 1., 0.) - cup_transform.translation()) * 6.;
             }
 }
 #[wasm_bindgen(start)]
