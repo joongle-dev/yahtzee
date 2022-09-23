@@ -98,11 +98,10 @@ fn spawn_gltf(mut commands: Commands, (asset, mut meshes, mut materials): (Res<A
         transform: Transform::from_xyz(0.0, 3.0, 0.0).looking_at(Vec3::ZERO, -Vec3::Z),
         ..Default::default()
         })
-        .insert(ControllableCamera)
         .insert(MainCamera);
 }
 
-fn control(input: Res<Input<KeyCode>>, time: Res<Time>, mut query: Query<&mut Transform, With<MsinCamera>>) {
+fn control(input: Res<Input<KeyCode>>, time: Res<Time>, mut query: Query<&mut Transform, With<MainCamera>>) {
     for mut transform in &mut query {
         let mut direction = Vec3::ZERO;
         if input.pressed(KeyCode::W) {
