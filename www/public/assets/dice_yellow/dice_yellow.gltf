@@ -1,0 +1,210 @@
+{
+    "asset": {
+        "generator": "FBX2glTF v0.9.7",
+        "version": "2.0"
+    },
+    "scene": 0,
+    "buffers": [
+        {
+            "byteLength": 59336,
+            "uri": "buffer.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 13032,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 17364,
+            "byteOffset": 13032,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 17364,
+            "byteOffset": 30396,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 11576,
+            "byteOffset": 47760,
+            "target": 34962
+        }
+    ],
+    "scenes": [
+        {
+            "name": "Root Scene",
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "accessors": [
+        {
+            "componentType": 5123,
+            "type": "SCALAR",
+            "count": 6516,
+            "bufferView": 0,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 1447,
+            "bufferView": 1,
+            "byteOffset": 0,
+            "min": [
+                -0.0249999985098839,
+                -0.0249999985098839,
+                -0.0249999985098839
+            ],
+            "max": [
+                0.0249999985098839,
+                0.0249999985098839,
+                0.0249999985098839
+            ]
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC3",
+            "count": 1447,
+            "bufferView": 2,
+            "byteOffset": 0
+        },
+        {
+            "componentType": 5126,
+            "type": "VEC2",
+            "count": 1447,
+            "bufferView": 3,
+            "byteOffset": 0
+        }
+    ],
+    "samplers": [
+        {}
+    ],
+    "materials": [
+        {
+            "name": "dice_yellow",
+            "alphaMode": "OPAQUE",
+            "extras": {
+                "fromFBX": {
+                    "shadingModel": "Phong",
+                    "isTruePBR": false
+                }
+            },
+            "normalTexture": {
+			"index": 1
+		},
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1.0
+                ],
+                "metallicFactor": 0.400000005960464,
+                "roughnessFactor": 0.242535620927811,
+		    "baseColorTexture": {
+			  "index": 0
+		    },
+		    "metallicRoughnessTexture": {
+		    	  "index": 2
+		    }
+            }
+        }
+    ],
+"textures": [
+        {
+            "sampler": 0,
+            "source": 0,
+            "name": "dice_yellow.png"
+        },
+        {
+            "sampler": 0,
+            "source": 1,
+            "name": "dice_normal.png"
+        },
+	  {
+            "sampler": 0,
+            "source": 2,
+            "name": "dice_metallicSmoothness.png"
+        }
+	],
+	"images": [
+        {
+            "uri": "dice_yellow.png"
+        },
+        {
+            "uri": "dice_normal.png"
+        },
+	  {
+            "uri": "dice_metallicSmoothness.png"
+        }
+	],
+    "meshes": [
+        {
+            "name": "dice_yellow",
+            "primitives": [
+                {
+                    "material": 0,
+                    "mode": 4,
+                    "attributes": {
+                        "NORMAL": 2,
+                        "POSITION": 1,
+                        "TEXCOORD_0": 3
+                    },
+                    "indices": 0
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "RootNode",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "dice_yellow",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "mesh": 0
+        }
+    ]
+}
