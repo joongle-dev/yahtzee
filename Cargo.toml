@@ -14,6 +14,21 @@ log = "0.4.17"
 console_log = "0.2.0"
 console_error_panic_hook = "0.1.7"
 bevy_rapier3d = "0.16.2"
+wasm-bindgen-futures = "0.4.33"
+
+[dependencies.web-sys]
+version = "0.3.60"
+features = [
+  "MessageEvent",
+  "RtcPeerConnection",
+  "RtcSignalingState",
+  "RtcSdpType",
+  "RtcSessionDescriptionInit",
+  "RtcPeerConnectionIceEvent",
+  "RtcIceCandidate",
+  "RtcDataChannel",
+  "RtcDataChannelEvent",
+]
 
 [profile.dev.package."*"]
 opt-level = 3
