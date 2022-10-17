@@ -18,20 +18,14 @@
     <form id="host-form">
         <a href="#" class="host-menu-btn">Menu</a>
         <h2>Invite Code</h2>     
+        <h2 class="invite-code"></h2>
     </form>
     <form id="join-form">
         <a href="#" class="join-menu-btn">Menu</a>
-        <input type="text" placeholder="Invite Code Here">
+        <input type="text" class="join-code" placeholder="Invite Code Here">
     </form>
     <canvas id="canvas" width="800" height="600"></canvas>
     <script type="module" src="script.js"></script>
-    <script type="module">
-        import init from "./yahtzee.js";
-        async function run() {
-            await init();
-        }
-        run();
-    </script>
 </body>
 
 </html>

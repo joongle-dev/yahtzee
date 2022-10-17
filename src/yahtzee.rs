@@ -1,6 +1,7 @@
 use bevy::{prelude::*, window::WindowResized};
 use bevy_rapier3d::prelude::*;
 use wasm_bindgen::prelude::*;
+use crate::network::Network;
 
 #[derive(Component)]
 struct MainCamera;
@@ -8,16 +9,25 @@ struct MainCamera;
 struct ShakeableCup;
 
 #[wasm_bindgen]
-struct Yahtzee {
+pub struct Yahtzee {
+    network: Network
 }
 
 #[wasm_bindgen]
 impl Yahtzee {
-    #[wasm_bindgen(constructor)]
-    pub fn new() -> Self {
-        Self {
+    #[wasm_bindgen]
+    pub async fn send_sdp_offer(&mut self, target_id: String) -> Result<String, JsValue> {
+        self.network.send_sdp_offer(target_id).await
+    }
 
-        }
+    //#[wasm_bindgen]
+    //pub async fn answer_sdp_offer(&mut self, sender_id: String, offer_sdp: String) -> Result<String, JsValue> {
+    //    self.network.answer_sdp_offer(sender_id, offer_sdp).await
+    //}
+
+    #[wasm_bindgen]
+    pub async fn receive_sdp_answer(&mut self, sender_id: String, answer_sdp: String) -> Result<(), JsValue> {
+        self.network.receive_sdp_answer(sender_id, answer_sdp).await
     }
 
     pub fn run(&self) {
@@ -170,21 +180,4 @@ fn shake_cup(mut state: Local<ShakeCupState>, mouse_input: Res<Input<MouseButton
                 let (cup_transform, mut cup_velocity) = cup_query.single_mut();
                 cup_velocity.linvel = (Vec3::new(0., 1., 0.) - cup_transform.translation()) * 6.;
             }
-}
-#[wasm_bindgen(start)]
-pub fn run() {
-    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
-
-    App::new()
-        .insert_resource(WindowDescriptor {
-            canvas: Some("canvas".to_string()),
-            width: 800.,
-            height: 600.,
-            ..default()
-        })
-        .add_plugins(DefaultPlugins)
-        .add_plugin(RapierPhysicsPlugin::<NoUserData>::default())
-        .add_startup_system(spawn_gltf)
-        .add_system(shake_cup)
-        .run();
 }
